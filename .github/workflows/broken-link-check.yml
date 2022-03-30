@@ -34,12 +34,11 @@ jobs:
       uses: celinekurpershoek/link-checker@v1.0.1
       with:
         # Required:
-#         url: 'https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html'
+        url: 'https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html'
         excludedKeywords: 'localhost,host_name'
         # optional:
         honorRobotExclusions: false
         ignorePatterns: 'github,google'
-        recursiveLinks: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html,https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"
 

@@ -24,32 +24,32 @@ on:
 
 
 
-# jobs:
-#   broken_link_checker_job:
-#     runs-on: ubuntu-latest
-#     name: Check for broken links
-#     steps:
-#     - name: Check for broken links
-#       id: link-report
-#       uses: celinekurpershoek/link-checker@v1.0.1
-#       with:
-#         # Required:
-#         url: 'https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html'
-#         excludedKeywords: 'localhost,host_name'
-#         # optional:
-#         honorRobotExclusions: false
-#         ignorePatterns: 'github,google'
-#         recursiveLinks: false # Check all URLs on all reachable pages (could take a while)
-#     - name: Get the result
-#       run: echo "${{steps.link-report.outputs.result}}"
-
 jobs:
-  markdown-link-check:
+  broken_link_checker_job:
     runs-on: ubuntu-latest
+    name: Check for broken links
     steps:
-    - uses: actions/checkout@master
-    - uses: gaurav-nelson/github-action-markdown-link-check@v1
+    - name: Check for broken links
+      id: link-report
+      uses: celinekurpershoek/link-checker@v1.0.1
       with:
-        use-quiet-mode: 'yes'
-        folder-path: 'docs/src/main/asciidoc'
+        # Required:
+#         url: 'https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html'
+        excludedKeywords: 'localhost,host_name'
+        # optional:
+        honorRobotExclusions: false
+        ignorePatterns: 'github,google'
+        recursiveLinks: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html,https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html
+    - name: Get the result
+      run: echo "${{steps.link-report.outputs.result}}"
+
+# jobs:
+#   markdown-link-check:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@master
+#     - uses: gaurav-nelson/github-action-markdown-link-check@v1
+#       with:
+#         use-quiet-mode: 'yes'
+#         folder-path: 'docs/src/main/asciidoc'
 #         file-path: './README.md, ./LICENSE, ./md/file4.markdown'

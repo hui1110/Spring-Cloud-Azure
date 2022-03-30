@@ -3,10 +3,9 @@ name: Update Docs
 on:
   push:
     branches:
-#     - main
-#     - docs
-#     - 4.*
-    - yonghui/link_check
+    - main
+    - docs
+    - 4.*
     # paths:
     # - 'docs/**'
   # release:

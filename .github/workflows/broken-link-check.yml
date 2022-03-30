@@ -12,13 +12,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  check_html_links_job:
+  link-check:
     runs-on: ubuntu-latest
-    name: Check-html-links-action
     steps:
-    - uses: actions/checkout@v2
-    - name: check-html-links-action step
-      id: check-links
-      uses: modernweb-dev/check-html-links-action@v1
+    - uses: technote-space/broken-link-checker-action@v1.1.3
       with:
-        doc-folder: '4.0.0'
+        TARGET: https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html
+        EXCLUDED_KEYWORDS: localhost
+        EXCLUDE_LINKS_TO_SAME_PAGE: false

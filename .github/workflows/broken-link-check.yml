@@ -32,7 +32,7 @@ jobs:
       with:
         # Required:
         url: 'https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html'
-        EXCLUDED_KEYWORDS: 'localhost,host_name'
+        EXCLUDED_KEYWORDS: 'localhost','host_name'
         # optional:
         honorRobotExclusions: false
         ignorePatterns: 'github,google'

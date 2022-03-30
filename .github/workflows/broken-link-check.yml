@@ -24,23 +24,23 @@ on:
 
 
 
-jobs:
-  broken_link_checker_job:
-    runs-on: ubuntu-latest
-    name: Check for broken links
-    steps:
-    - name: Check for broken links
-      id: link-report
-      uses: celinekurpershoek/link-checker@v1.0.1
-      with:
-        # Required:
-        url: 'https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html'
-        excludedKeywords: 'localhost,host_name'
-        # optional:
-        honorRobotExclusions: false
-        ignorePatterns: 'github,google'
-    - name: Get the result
-      run: echo "${{steps.link-report.outputs.result}}"
+# jobs:
+#   broken_link_checker_job:
+#     runs-on: ubuntu-latest
+#     name: Check for broken links
+#     steps:
+#     - name: Check for broken links
+#       id: link-report
+#       uses: celinekurpershoek/link-checker@v1.0.1
+#       with:
+#         # Required:
+#         url: 'https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html'
+#         excludedKeywords: 'localhost,host_name'
+#         # optional:
+#         honorRobotExclusions: false
+#         ignorePatterns: 'github,google'
+#     - name: Get the result
+#       run: echo "${{steps.link-report.outputs.result}}"
 
 # jobs:
 #   markdown-link-check:
@@ -52,3 +52,17 @@ jobs:
 #         use-quiet-mode: 'yes'
 #         folder-path: 'docs/src/main/asciidoc'
 #         file-path: './README.md, ./LICENSE, ./md/file4.markdown'
+
+
+jobs:
+  check_html_links_job:
+    runs-on: ubuntu-latest
+    name: A job to test check-html-links-action
+    steps:
+      - uses: actions/checkout@v2
+      - name: check-html-links-action step
+        id: check-links
+        uses: modernweb-dev/check-html-links-action@v1
+        with:
+          doc-folder: https://github.com/microsoft/spring-cloud-azure/tree/gh-pages/4.0.0/reference/html
+          excludedKeywords: 'localhost,host_name'

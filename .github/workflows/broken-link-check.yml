@@ -19,5 +19,5 @@ jobs:
       uses: technote-space/broken-link-checker-action@v1.1.3
       with:
         TARGET: https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html
-        EXCLUDED_KEYWORDS: localhost,{port}
+        EXCLUDED_KEYWORDS: localhost,HOST_NAME
         EXCLUDE_LINKS_TO_SAME_PAGE: false

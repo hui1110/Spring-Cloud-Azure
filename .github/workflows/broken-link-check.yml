@@ -31,8 +31,8 @@ jobs:
       uses: celinekurpershoek/link-checker@v1.0.1
       with:
         # Required:
-        url: https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html
-        EXCLUDED_KEYWORDS: localhost,HOST_NAME:{port}
+        url: 'https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html'
+        EXCLUDED_KEYWORDS: 'localhost,host_name'
         # optional:
         honorRobotExclusions: false
         ignorePatterns: 'github,google'

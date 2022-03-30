@@ -14,7 +14,7 @@ on:
 jobs:
   check_html_links_job:
     runs-on: ubuntu-latest
-    name: A job to test check-html-links-action
+    name: Check-html-links-action
     steps:
     - uses: actions/checkout@v2
     - name: check-html-links-action step

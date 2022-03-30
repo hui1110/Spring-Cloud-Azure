@@ -11,31 +11,31 @@ on:
     - cron: "0 2 * * 1-5"
   workflow_dispatch:
 
-# jobs:
-#   link-check:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Broken Link Check
-#       uses: technote-space/broken-link-checker-action@v1.1.3
-#       with:
-#         TARGET: https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html
-#         EXCLUDED_KEYWORDS: localhost,HOST_NAME:{port}
-#         EXCLUDE_LINKS_TO_SAME_PAGE: false
 jobs:
-  broken_link_checker_job:
+  link-check:
     runs-on: ubuntu-latest
-    name: Check for broken links
     steps:
-    - name: Check for broken links
-      id: link-report
-      uses: celinekurpershoek/link-checker@v1.0.1
+    - name: Broken Link Check
+      uses: technote-space/broken-link-checker-action@v1.1.3
       with:
-        # Required:
-        url: 'https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html'
-        excludedKeywords: 'localhost,host_name'
-        # optional:
-        honorRobotExclusions: false
-        ignorePatterns: 'github,google'
-        recursiveLinks: false # Check all URLs on all reachable pages (could take a while)
-    - name: Get the result
-      run: echo "${{steps.link-report.outputs.result}}"
+        TARGET: https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html,https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html
+        EXCLUDED_KEYWORDS: localhost,host_name
+        EXCLUDE_LINKS_TO_SAME_PAGE: false
+# jobs:
+#   broken_link_checker_job:
+#     runs-on: ubuntu-latest
+#     name: Check for broken links
+#     steps:
+#     - name: Check for broken links
+#       id: link-report
+#       uses: celinekurpershoek/link-checker@v1.0.1
+#       with:
+#         # Required:
+#         url: 'https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html'
+#         excludedKeywords: 'localhost,host_name'
+#         # optional:
+#         honorRobotExclusions: false
+#         ignorePatterns: 'github,google'
+#         recursiveLinks: false # Check all URLs on all reachable pages (could take a while)
+#     - name: Get the result
+#       run: echo "${{steps.link-report.outputs.result}}"

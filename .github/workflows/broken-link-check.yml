@@ -23,9 +23,13 @@ jobs:
 #         with:
 #           doc-folder: '4.0.0/reference/html'
       - uses: actions/checkout@v2
+      - id: link-report
       - name: Link Checker
         uses: peter-evans/link-checker@v1
         with:
-          args: -d --document-root ./4.0.0/reference/html -r -x (?=)host_name|localhost -v
+          args: -d --document-root ./4.0.0/reference/html -r -x 'host_name|localhost(?:)' -v
+          
+      - name: Get the result
+        run: echo "${{steps.link-report.outputs.result}}"
         
       

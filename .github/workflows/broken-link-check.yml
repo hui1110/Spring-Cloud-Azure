@@ -16,9 +16,20 @@ jobs:
     runs-on: ubuntu-latest
     name: check-html-links-action
     steps:  
-      - uses: actions/checkout@v2     
-      - name: check-html-links-action step
-        id: check-links
-        uses: modernweb-dev/check-html-links-action@v1
+#       - uses: actions/checkout@v2     
+#       - name: check-html-links-action step
+#         id: check-links
+#         uses: modernweb-dev/check-html-links-action@v1
+#         with:
+#           doc-folder: '4.0.0/reference/html'
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1.4.1
         with:
-          doc-folder: '4.0.0/reference/html'
+    # Check all markdown and html files in repo (default)
+          args: --verbose --no-progress './4.0.0/reference/html/*.html'
+    # Use json as output format (instead of markdown)
+#           format: json
+    # Use different output filename
+#           output: /tmp/foo.txt
+    # Fail action on broken links
+          fail: true

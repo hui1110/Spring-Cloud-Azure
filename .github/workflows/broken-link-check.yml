@@ -9,7 +9,6 @@ on:
       - gh-pages 
   schedule:
     - cron: '* * * * *'
-  workflow_dispatch:
 
 jobs:
   check_html_links_job:

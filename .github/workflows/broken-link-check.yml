@@ -17,6 +17,9 @@ jobs:
     name: check-html-links-action
     steps:  
       - uses: actions/checkout@v2
+      - name: Build docs
+        run: |
+            mvn clean install -Pdocs
       - name: Link Checker
         id: link-report
         uses: peter-evans/link-checker@v1

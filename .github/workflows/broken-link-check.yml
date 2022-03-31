@@ -22,14 +22,10 @@ jobs:
 #         uses: modernweb-dev/check-html-links-action@v1
 #         with:
 #           doc-folder: '4.0.0/reference/html'
+      - uses: actions/checkout@v2
       - name: Link Checker
-        uses: lycheeverse/lychee-action@v1.4.1
+        uses: peter-evans/link-checker@v1
         with:
-    # Check all markdown and html files in repo (default)
-          args: --verbose --no-progress './**/*.md' './**/*.html'
-    # Use json as output format (instead of markdown)
-#           format: json
-    # Use different output filename
-#           output: /tmp/foo.txt
-    # Fail action on broken links
-          fail: true
+          title: Link Checker Report
+          content-filepath: ./4.0.0/reference/html/*.html
+      

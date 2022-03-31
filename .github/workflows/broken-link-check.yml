@@ -4,6 +4,8 @@ name: Link Checker
 
 # Controls when the workflow will run
 on:
+  push:
+    branches: [ gh-pages ]
   schedule:
     - cron: '* * * * *'
   workflow_dispatch:

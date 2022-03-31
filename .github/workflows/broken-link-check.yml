@@ -4,9 +4,6 @@ name: Link Checker
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-#  push:
-#    branches: [ gh-pages ]
   schedule:
     - cron: "0 2 * * 1-5"
   workflow_dispatch:
@@ -16,12 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     name: check-html-links-action
     steps:  
-#       - uses: actions/checkout@v2     
-#       - name: check-html-links-action step
-#         id: check-links
-#         uses: modernweb-dev/check-html-links-action@v1
-#         with:
-#           doc-folder: '4.0.0/reference/html'
       - uses: actions/checkout@v2
       - name: Link Checker
         id: check-links

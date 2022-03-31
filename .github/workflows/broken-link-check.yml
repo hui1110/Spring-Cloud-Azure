@@ -28,10 +28,9 @@ jobs:
         uses: peter-evans/link-checker@v1
         with:
           args: -d --document-root ./4.0.0/reference/html -r -x "localhost|127.0.0.1"
-      - name: Get the result
-        run: echo "${{steps.check-links.outputs.result}}"
-      - name: Output exit code
-        run: echo ${{ steps.check-links.outputs.exit_code }}
+      - run: | 
+          errors = cat link-checker/out.md | grep 'ERROR   ' | wc --lines
+          echo errors
       - name: check result
         run: exit 1
       

@@ -61,8 +61,8 @@ jobs:
     steps:
       - name: Build docs
         run: |
-            cd spring-cloud-azure
             pwd
+            ls
             cd docs
             mvn clean install -Pdocs
             

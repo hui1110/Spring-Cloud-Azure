@@ -24,7 +24,9 @@ jobs:
           args: -d --document-root ./4.0.0/reference/html -r -x "localhost|127.0.0.1"
       - name: Get the result
         run: |
-         if [cat link-checker/out.md | grep 'ERROR' | wc -l -gt '0'] 
-         then exit 1
+         if [cat link-checker/out.md | grep 'ERROR' | wc -l -gt '0'] then 
+         echo 'Check for broken links' exit 1
+         else echo'link check passed'
+         fi
          
       

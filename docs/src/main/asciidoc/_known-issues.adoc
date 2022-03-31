@@ -1,5 +1,3 @@
 == Known Issues
 
-link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-rolessSBb[Azure built-in roles]
-
 

@@ -67,7 +67,7 @@ jobs:
             
       - name: check-html-links-action step
         id: check-links
-        uses: modernweb-dev/check-html-links-action@v1
+        uses: modernweb-dev/check-html-links-action@v1.1
         with:
           doc-folder: docs/target/generated-docs
           excludedKeywords: localhost,host_name

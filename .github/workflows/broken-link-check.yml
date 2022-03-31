@@ -7,67 +7,25 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ gh-pages ]
-  schedule:
-    - cron: "0 2 * * 1-5"
   workflow_dispatch:
-
-# jobs:
-#   link-check:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Broken Link Check
-#       uses: technote-space/broken-link-checker-action@v1.1.3
-#       with:
-#         TARGET: https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html
-#         EXCLUDED_KEYWORDS: localhost,host_name
-#         EXCLUDE_LINKS_TO_SAME_PAGE: false
-
-
-
-# jobs:
-#   broken_link_checker_job:
-#     runs-on: ubuntu-latest
-#     name: Check for broken links
-#     steps:
-#     - name: Check for broken links
-#       id: link-report
-#       uses: celinekurpershoek/link-checker@v1.0.1
-#       with:
-#         # Required:
-#         url: 'https://hui1110.github.io/spring-cloud-azure/current/reference/html/index.html'
-#         excludedKeywords: 'localhost,host_name'
-#         # optional:
-#         honorRobotExclusions: false
-#         ignorePatterns: 'github,google'
-#     - name: Get the result
-#       run: echo "${{steps.link-report.outputs.result}}"
-
-# jobs:
-#   markdown-link-check:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@master
-#     - uses: gaurav-nelson/github-action-markdown-link-check@v1
-#       with:
-#         use-quiet-mode: 'yes'
-#         folder-path: 'docs/src/main/asciidoc'
-#         file-path: './README.md, ./LICENSE, ./md/file4.markdown'
-
 
 jobs:
   check_html_links_job:
     runs-on: ubuntu-latest
-    name: A job to test check-html-links-action
+    name: check-html-links-action
     steps:  
       - uses: actions/checkout@v2
-      
-      - name: Build docs
-        run: |
-            mvn clean install -Pdocs
-            
-      - name: check-html-links-action step
-        id: check-links
-        uses: modernweb-dev/check-html-links-action@v1.1
+      - name: Link Checker
+        id: link-report
+        uses: peter-evans/link-checker@v1
         with:
-          doc-folder: docs/target/generated-docs
-          excludedKeywords: localhost,host_name
+          args: -d --document-root ./4.0.0/reference/html -r -x "localhost|127.0.0.1"
+      - name: Get the result
+        run: |
+         errors=`cat link-checker/out.md | grep 'ERROR' | wc -l`
+         if [[ $errors -gt 0 ]] ; then 
+             echo 'Check for broken links' 
+             exit 1
+         else
+             echo 'Link check passed'
+         fi

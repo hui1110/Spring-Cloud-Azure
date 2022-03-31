@@ -60,14 +60,9 @@ jobs:
     name: A job to test check-html-links-action
     steps:  
       - uses: actions/checkout@v2
-      
-      - name: Build docs
-        run: |
-            mvn clean install -Pdocs
             
       - name: check-html-links-action step
         id: check-links
         uses: modernweb-dev/check-html-links-action@v1.1
         with:
-          doc-folder: docs/target/generated-docs
-          excludedKeywords: localhost,host_name
+          doc-folder: 4.0.0/reference/html

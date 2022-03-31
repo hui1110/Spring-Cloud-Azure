@@ -15,14 +15,12 @@ jobs:
     steps:  
       - uses: actions/checkout@v2
       - name: Link Checker
-        
-      - uses: peter-evans/link-checker@v1
+        uses: peter-evans/link-checker@v1
         with:
-          args: -d --document-root ./4.0.0/reference/html -r -x "localhost|127.0.0.1"
-          
+          args: -d --document-root ./4.0.0/reference/html -r -x "localhost|127.0.0.1" 
       - name: check result
       - run: | 
-          errors = cat link-checker/out.md | grep 'ERROR' | wc -l
+          errors = cat link-checker/out.md | grep 'ERROR' | wc -l 
      #    run: exit 1
       
       

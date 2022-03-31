@@ -29,8 +29,7 @@ jobs:
         with:
           args: -d --document-root ./4.0.0/reference/html -r -x "localhost|127.0.0.1"
       - run: | 
-          errors = cat link-checker/out.md | grep 'ERROR   ' | wc --lines
-          echo errors
+          errors = cat link-checker/out.md | grep 'ERROR' | wc -l
       - name: check result
         run: exit 1
       

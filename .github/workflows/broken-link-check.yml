@@ -58,16 +58,32 @@ jobs:
   check_html_links_job:
     runs-on: ubuntu-latest
     name: A job to test check-html-links-action
-    steps:
+    steps:  
+      - uses: actions/checkout@v2
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+            path: ~/.m2/repository
+            key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+            restore-keys: ${{ runner.os }}-maven-
+      - name: Download ${{ matrix.version }}
+        uses: sdkman/sdkman-action@master
+        id: sdkman
+        with:
+            candidate: java
+            version: ${{ matrix.version }}
+      - name: Set up ${{ matrix.version }}
+        uses: actions/setup-java@v1
+        with:
+            java-version: 11
+            jdkFile: ${{ steps.sdkman.outputs.file }}
       - name: Build docs
         run: |
             pwd
             dir
-            cd /home/runner/work/spring-cloud-azure/spring-cloud-azure/docs
+            cd docs
             pwd
             mvn clean install -Pdocs
-            
-      - uses: actions/checkout@v2
       - name: check-html-links-action step
         id: check-links
         uses: modernweb-dev/check-html-links-action@v1

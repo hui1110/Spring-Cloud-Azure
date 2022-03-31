@@ -59,10 +59,15 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to test check-html-links-action
     steps:
+      - name: Build docs
+        run: |
+            cd sdk/spring/docs
+            mvn clean install -Pdocs
+            
       - uses: actions/checkout@v2
       - name: check-html-links-action step
         id: check-links
         uses: modernweb-dev/check-html-links-action@v1
         with:
-          doc-folder: https://github.com/microsoft/spring-cloud-azure/tree/gh-pages/4.0.0/reference/html
+          doc-folder: sdk/spring/docs/target/generated-docs
           excludedKeywords: localhost,host_name

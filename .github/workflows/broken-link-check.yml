@@ -62,7 +62,7 @@ jobs:
       - name: Build docs
         run: |
             pwd
-            ls
+            dir
             cd /home/runner/work/spring-cloud-azure/spring-cloud-azure/docs
             pwd
             mvn clean install -Pdocs

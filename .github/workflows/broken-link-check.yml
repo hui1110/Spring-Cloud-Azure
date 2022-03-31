@@ -63,7 +63,8 @@ jobs:
         run: |
             pwd
             ls
-            cd docs
+            cd /home/runner/work/spring-cloud-azure/spring-cloud-azure/docs
+            pwd
             mvn clean install -Pdocs
             
       - uses: actions/checkout@v2

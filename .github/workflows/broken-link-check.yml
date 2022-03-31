@@ -4,6 +4,9 @@ name: Link Checker
 
 # Controls when the workflow will run
 on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+#  push:
+#    branches: [ gh-pages ]
   schedule:
     - cron: "0 2 * * 1-5"
   workflow_dispatch:
@@ -15,12 +18,11 @@ jobs:
     steps:  
       - uses: actions/checkout@v2
       - name: Link Checker
+        id: link-report
         uses: peter-evans/link-checker@v1
         with:
-          args: -d --document-root ./4.0.0/reference/html -r -x "localhost|127.0.0.1" 
-      - name: check result
-      - run: | 
-          errors = cat link-checker/out.md | grep 'ERROR' | wc -l 
-     #    run: exit 1
-      
+          args: -d --document-root ./4.0.0/reference/html -r -x "localhost|127.0.0.1"
+      - name: Get the result
+        run: |
+         errors = cat link-checker/out.md | grep 'ERROR' | wc -l 
       

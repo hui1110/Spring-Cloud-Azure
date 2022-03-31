@@ -8,7 +8,8 @@ on:
   schedule:
     - cron: '* * * * *'
   push:
-    branches: [ gh-pages ]
+    branches:  
+      - gh-pages 
   workflow_dispatch:
 
 jobs:

@@ -61,7 +61,7 @@ jobs:
     steps:
       - name: Build docs
         run: |
-            cd sdk/spring/docs
+            cd docs
             mvn clean install -Pdocs
             
       - uses: actions/checkout@v2
@@ -69,5 +69,5 @@ jobs:
         id: check-links
         uses: modernweb-dev/check-html-links-action@v1
         with:
-          doc-folder: sdk/spring/docs/target/generated-docs
+          doc-folder: docs/target/generated-docs
           excludedKeywords: localhost,host_name

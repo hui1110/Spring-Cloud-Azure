@@ -9,7 +9,7 @@ on:
     - cron: '* * * * *'
   push:
     branches:  
-      - gh-pages 
+      - gh-pages
 
 jobs:
   check_html_links_job:

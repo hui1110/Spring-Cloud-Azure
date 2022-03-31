@@ -63,10 +63,6 @@ jobs:
       
       - name: Build docs
         run: |
-            pwd
-            dir
-            cd docs
-            pwd
             mvn clean install -Pdocs
             
       - name: check-html-links-action step

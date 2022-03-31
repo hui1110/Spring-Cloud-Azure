@@ -26,7 +26,7 @@ jobs:
         uses: lycheeverse/lychee-action@v1.4.1
         with:
     # Check all markdown and html files in repo (default)
-          args: --verbose --no-progress '4.0.0/reference/html/*.html'
+          args: --verbose --no-progress './**/*.md' './**/*.html'
     # Use json as output format (instead of markdown)
 #           format: json
     # Use different output filename

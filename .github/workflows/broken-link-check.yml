@@ -61,6 +61,7 @@ jobs:
     steps:
       - name: Build docs
         run: |
+            pwd
             cd docs
             mvn clean install -Pdocs
             

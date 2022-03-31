@@ -19,6 +19,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build docs
         run: |
+            cd docs
             mvn clean install -Pdocs
       - name: Link Checker
         id: link-report

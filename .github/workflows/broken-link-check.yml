@@ -26,6 +26,6 @@ jobs:
       - name: Link Checker
         uses: peter-evans/link-checker@v1
         with:
-          arg: -d '4.0.0/reference/html'
+          args: -d '4.0.0/reference/html'
         
       

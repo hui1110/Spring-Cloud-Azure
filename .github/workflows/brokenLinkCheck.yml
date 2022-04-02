@@ -33,7 +33,7 @@ jobs:
       - name: Link version replacement
         run: |
           cd link-checker
-          sudo sed -i 's/spring-cloud-azure_*.*.*-beta/main/g' *
+          sudo sed -i 's/spring-cloud-azure_*.*.*-beta.*//main/g' *
           sudo sed -i 's/```/ /g' *
           cat out.md
           pwd out.md

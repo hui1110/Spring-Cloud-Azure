@@ -39,7 +39,7 @@ jobs:
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-quiet-mode: 'yes'
-          file-path: 'link-checker/out.md'
+          file-path: './link-checker/out.md'
 
       - name: Get the result
         run: |

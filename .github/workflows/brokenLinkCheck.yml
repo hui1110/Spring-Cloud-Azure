@@ -36,10 +36,10 @@ jobs:
           cat out.md
 
       - name: Markdown Links Check
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        uses: ruzickap/action-my-markdown-link-checker@v1
         with:
-          use-quiet-mode: 'yes'
-          file-path: './link-checker/out.md'
+          search_paths: |
+            link-checker/
 
       - name: Get the result
         run: |

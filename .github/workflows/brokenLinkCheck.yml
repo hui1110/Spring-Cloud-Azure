@@ -11,7 +11,6 @@ on:
       - main
   workflow_dispatch:
 
-
 jobs:
   check_html_links_job:
     runs-on: ubuntu-latest
@@ -26,7 +25,14 @@ jobs:
         id: link-report
         uses: peter-evans/link-checker@v1
         with:
-          args: -d --document-root ./docs/target/generated-docs -r -x "my|localhost|127.0.0.1|spring-cloud-azure_*.*-beta"
+          args: -d --document-root ./docs/target/generated-docs -r -x "my|localhost|127.0.0.1"
+
+      - uses: actions/checkout@master
+      - uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          file-path: './link-checker/out.md'
+
       - name: Get the result
         run: |
           errors=`cat link-checker/out.md | grep 'ERROR' | wc -l`

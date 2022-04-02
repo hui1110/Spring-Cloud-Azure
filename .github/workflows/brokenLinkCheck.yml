@@ -26,7 +26,7 @@ jobs:
         id: link-report
         uses: peter-evans/link-checker@v1
         with:
-          args: -d --document-root ./docs/target/generated-docs -r -x "my|localhost|127.0.0.1|spring-cloud-azure_*.*.*-beta.*"
+          args: -d --document-root ./docs/target/generated-docs -r -x "my|localhost|127.0.0.1|spring-cloud-azure_*.*-beta"
       - name: Get the result
         run: |
           errors=`cat link-checker/out.md | grep 'ERROR' | wc -l`

@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Check-Links-Action
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
 
       - name: Build Docs
         run: |
@@ -36,10 +36,9 @@ jobs:
           cat out.md
 
       - name: Markdown Links Check
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        uses: peter-evans/link-checker@v1
         with:
-          ile-path: './link-checker/out.md'
-          use-quiet-mode: 'yes'
+          args: -d --document-root ./link-checker -r
 
       - name: Get the result
         run: |

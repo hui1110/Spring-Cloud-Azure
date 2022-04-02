@@ -36,11 +36,10 @@ jobs:
           cat out.md
 
       - name: Markdown Links Check
-        uses: JustinBeckwith/linkinator-action@v1
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
-          paths: "link-checker/out.md"
-          markdown: true
-          retry: true
+          use-quiet-mode: 'yes'
+          file-path: 'link-checker/out.md'
 
       - name: Get the result
         run: |

@@ -39,7 +39,7 @@ jobs:
         uses: ruzickap/action-my-markdown-link-checker@v1
         with:
           search_paths: |
-            link-checker/
+            ./link-checker/
 
       - name: Get the result
         run: |

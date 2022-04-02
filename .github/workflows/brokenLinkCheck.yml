@@ -30,9 +30,9 @@ jobs:
           args: -d --document-root ./docs/target/generated-docs -r -x "my|localhost|127.0.0.1"
 
       - name: link Replacement
-          run: |
-            cd link-checker
-            sed -i 's/spring-cloud-azure_*.*.*-beta.*/main/g' *
+        run: |
+          cd link-checker
+          sed -i 's/spring-cloud-azure_*.*.*-beta.*/main/g' *
 
       - name: Markdown Links Check
         uses: ruzickap/action-my-markdown-link-checker@v1

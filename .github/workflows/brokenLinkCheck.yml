@@ -14,7 +14,7 @@ on:
 jobs:
   check_html_links_job:
     runs-on: ubuntu-latest
-    name: check-html-links-action
+    name: Check-Links-Action
     steps:
       - uses: actions/checkout@v2
 
@@ -33,7 +33,12 @@ jobs:
         uses: ruzickap/action-my-markdown-link-checker@v1
         with:
           search_paths: |
-            link-checker/out.md
+            link-checker/
+
+      - name: link Replacement
+        run: |
+          cd link-checker
+          sed -i 's/spring-cloud-azure_*.*.*-beta.*/main/g' *
 
       - name: Get the result
         run: |

@@ -40,7 +40,7 @@ jobs:
       - name: Markdown Links Check
         uses: peter-evans/link-checker@v1
         with:
-          args: -r -d --document-root ./link-checker
+          args: -d --document-root ./link-checker -r *.md
 
       - name: Get the result
         run: |

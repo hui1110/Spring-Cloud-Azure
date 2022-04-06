@@ -1,12 +1,5 @@
 == Known Issues
 
-link:https://github.com/Azure-Samples/azure-spring-boot-samples/tree/spring-cloud-azure_v4.0.0/aad/spring-security/test[test link1]
-
-link:https://github.com/Azure-Samples/azure-spring-boot-samples/tree/spring-cloud-azure_4.-beta/aad/spring-security/test[test link2]
-
-link:https://github.com/Azure-Samples/azure-spring-boot-samples/tree/spring-cloud-azure_v4.0.0.1.1/aad/spring-security/test[test link3]
-
-link:https://github.com/Azure-Samples/azure-spring-boot-samples/tree/spring-cloud-azure_v4.0.0-1.1/aad/spring-security/test[test link3]
 
 
 

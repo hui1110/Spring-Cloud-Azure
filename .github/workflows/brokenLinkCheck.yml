@@ -23,7 +23,7 @@ jobs:
           ./mvnw clean install -P docs -pl docs -DskipTests
 
       - name: Link Checker
-        id: link-report
+        id: html-link-report
         uses: peter-evans/link-checker@v1
         with:
           args: -d --document-root ./docs/target/generated-docs -r -x "my|localhost|127.0.0.1"
@@ -35,16 +35,20 @@ jobs:
           sudo sed -i 's/```/ /g' *
 
       - name: Markdown Links Check
+        id: markdown-link-report
         uses: peter-evans/link-checker@v1
         with:
           args: -d --document-root ./link-checker -v -r *.md
 
       - name: Get the result
-        run: |
-          errors=`cat link-checker/out.md | grep 'ERROR' | wc -l`
-          if [[ $errors -gt 0 ]] ; then
-              echo 'Check for broken links'
-              exit 1
-          else
-              echo 'Link check passed'
-          fi
+        run: exit ${{ steps.markdown-link-report.outputs.exit_code }}
+
+#      - name: Get the result
+#        run: |
+#          errors=`cat link-checker/out.md | grep 'ERROR' | wc -l`
+#          if [[ $errors -gt 0 ]] ; then
+#              echo 'Check for broken links'
+#              exit 1
+#          else
+#              echo 'Link check passed'
+#          fi

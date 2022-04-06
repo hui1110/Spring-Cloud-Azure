@@ -21,7 +21,6 @@ jobs:
       - name: Build Docs
         run: |
           cd docs
-          pwd
           mvn clean install -Pdocs
 
       - name: Link Checker
@@ -35,13 +34,13 @@ jobs:
           cd link-checker
           sudo sed -i 's/spring-cloud-azure_*.*.*-beta.[0-9]/main/g' *
           sudo sed -i 's/```/ /g' *
-          cat out.md
-          pwd out.md
 
       - name: Markdown Links Check
         uses: peter-evans/link-checker@v1
         with:
           args: -d --document-root ./link-checker -v -r *.md
+        run: |
+          cat link-checker/out.md
 
       - name: Get the result
         run: |

@@ -20,14 +20,13 @@ jobs:
 
       - name: Build Docs
         run: |
-          cd docs
-          mvn clean install -Pdocs
+          ./mvnw clean install -P docs -pl docs -DskipTests
 
       - name: Link Checker
         id: link-report
         uses: peter-evans/link-checker@v1
         with:
-          args: -d --document-root ./docs/target/generated-docs -r -x "my|localhost|127.0.0.1"
+          args: -d --document-root ./docs/target/generated-docs -r -x "my|localhost|127.0.0.1" *.html
 
       - name: Link version replacement
         run: |
@@ -38,11 +37,7 @@ jobs:
       - name: Markdown Links Check
         uses: peter-evans/link-checker@v1
         with:
-          args: -d --document-root ./link-checker -v -r *.md
-
-      - name: Get out
-        run: |
-          cat link-checker/out.md
+          args: -d --document-root ./link-checker -r *.md
 
       - name: Get the result
         run: |

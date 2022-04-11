@@ -28,7 +28,7 @@ jobs:
        id: link-report
        uses: ruzickap/action-my-broken-link-checker@v2
        with:
-         url: https://microsoft.github.io/spring-cloud-azure/
+         url: https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html
          cmd_params: '"--one-page-only  --skip-tls-verification --verbose --color=always --exclude="(my|localhost|127.0.0.1)"'
         
      - name: Get the result

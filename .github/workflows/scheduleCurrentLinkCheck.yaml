@@ -1,0 +1,28 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Schedule Current Link Check
+
+# Controls when the workflow will run
+on:
+  # The schedule event allows you to trigger a workflow at a scheduled time.
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  broken_link_checker_job:
+    runs-on: ubuntu-latest
+    name: Check for broken links
+    steps:
+    - name: Check for broken links
+      id: link-report
+      uses: celinekurpershoek/link-checker@v1.0.1
+      with:
+        # Required:
+        url: 'https://microsoft.github.io/spring-cloud-azure/'
+        # optional:
+        honorRobotExclusions: false
+        ignorePatterns: 'localhost,127.0.0.1,my'
+        recursiveLinks: false # Check all URLs on all reachable pages (could take a while)
+    - name: Get the result
+      run: echo "${{steps.link-report.outputs.result}}"

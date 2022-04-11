@@ -23,6 +23,7 @@ jobs:
         # optional:
         honorRobotExclusions: false
         ignorePatterns: 'localhost,127.0.0.1,my'
-        recursiveLinks: false # Check all URLs on all reachable pages (could take a while)
+        recursiveLinks: false 
+        excludeLinksToSamePage: false
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"

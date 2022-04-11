@@ -19,7 +19,7 @@ jobs:
       uses: celinekurpershoek/link-checker@v1.0.1
       with:
         # Required:
-        url: 'https://microsoft.github.io/spring-cloud-azure/'
+        url: 'https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html'
         # optional:
         honorRobotExclusions: false
         ignorePatterns: 'localhost,127.0.0.1,my'

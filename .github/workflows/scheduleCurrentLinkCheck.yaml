@@ -24,6 +24,5 @@ jobs:
         honorRobotExclusions: false
         ignorePatterns: 'localhost,127.0.0.1,my'
         recursiveLinks: false 
-        excludeLinksToSamePage: false
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"

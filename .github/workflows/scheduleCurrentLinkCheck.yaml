@@ -26,10 +26,11 @@ jobs:
 #         recursiveLinks: false 
      - name: Check for broken links
        id: link-report
-       uses: ruzickap/action-my-broken-link-checker@v2
+       uses: ScholliYT/Broken-Links-Crawler-Action@v3
        with:
-         url: https://microsoft.github.io/spring-cloud-azure/
-         cmd_params: '"--one-page-only --verbose --color=always --exclude="(my|localhost|127.0.0.1)"'
+         website_url: 'https://microsoft.github.io/spring-cloud-azure/'
+         exclude_url_prefix: 'http://localhost:,http://host_name/,http://127.0.0.1:,https://my.'
+         verbose: 'true'
         
      - name: Get the result
        run: echo "${{steps.link-report.outputs.result}}"

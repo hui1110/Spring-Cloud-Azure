@@ -1,0 +1,56 @@
+plugins {
+    // Apply the java-library plugin for API and implementation separation.
+    id 'java-library'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
+}
+
+description = "Spring Cloud Azure reference documentation"
+
+configurations {
+    asciidoctorExtensions
+    gradlePluginExtensions
+}
+
+jar {
+    enabled = false
+}
+
+
+dependencies {
+
+    asciidoctorExtensions 'io.spring.asciidoctor.backends:spring-asciidoctor-backends:0.0.2'
+    asciidoctorExtensions  'io.spring.asciidoctor:spring-asciidoctor-extensions-spring-boot:0.6.0'
+    implementation group: 'org.jruby', name: 'jruby-complete', version: '9.1.0.0'
+    implementation group: 'org.asciidoctor', name: 'asciidoctorj', version: '2.4.1'
+}
+repositories {
+    maven {
+        url "https://repo.spring.io/release"
+        mavenContent {
+            includeGroup "io.spring.asciidoctor.backends"
+            includeGroup "io.spring.asciidoctor"
+            mavenCentral()
+        }
+    }
+}
+
+/**
+ * Generate the Spring for GraphQL Reference documentation from "src/docs/asciidoc"
+ * in "build/docs/reference/html".
+ */
+asciidoctor {
+    configurations 'asciidoctorExtensions'
+    baseDirFollowsSourceDir()
+    sources {
+        include '*.adoc'
+    }
+    logDocuments = true
+    outputOptions {
+        backends "spring-html"
+    }
+    outputDir "$buildDir/docs/reference/html"
+    attributes 'spring-cloud-azure-version': project.version,
+    'project-version': '4.0.0'
+}
+
+

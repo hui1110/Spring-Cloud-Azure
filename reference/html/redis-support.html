@@ -130,10 +130,23 @@ Authentication information is also required for authenticating for Azure Resourc
 <div class="paragraph">
 <p>Add below properties and you are good to go.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Properties</div>
 <div class="content">
 <pre class="highlight"><code class="language-properties" data-lang="properties">spring.cloud.azure.redis.name=${AZURE_CACHE_REDIS_NAME}
 spring.cloud.azure.redis.resource.resource-group=${AZURE_CACHE_REDIS_RESOURCE_GROUP}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  cloud:
+    azure:
+      redis:
+        name: ${AZURE_CACHE_REDIS_NAME}
+        resource:
+          resource-group: ${AZURE_CACHE_REDIS_RESOURCE_GROUP}</code></pre>
 </div>
 </div>
 </div>
@@ -148,7 +161,7 @@ spring.cloud.azure.redis.resource.resource-group=${AZURE_CACHE_REDIS_RESOURCE_GR
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-26 07:55:10 UTC
+Last updated 2022-04-26 08:16:45 UTC
 </div>
 </div>
 </div>

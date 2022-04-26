@@ -6649,7 +6649,24 @@ spring.cloud.stream.eventhubs.bindings.consume-in-0.consumer.checkpoint.mode=MAN
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">spring.cloud.azure.credential.client-id=${AZURE_CLIENT_ID}
+spring.cloud.azure.credential.client-secret=${AZURE_CLIENT_SECRET}
+spring.cloud.azure.profile.tenant-id=${AZURE_TENANT_ID}
+spring.cloud.azure.eventhubs.namespace=${EVENTHUB_NAMESPACE}
+spring.cloud.azure.eventhubs.processor.checkpoint-store.container-name=${CONTAINER_NAME}
+spring.cloud.azure.eventhubs.processor.checkpoint-store.account-name=${ACCOUNT_NAME}
+spring.cloud.stream.function.definition=consume;supply
+spring.cloud.stream.bindings.consume-in-0.destination=${EVENTHUB_NAME}
+spring.cloud.stream.bindings.consume-in-0.group=${CONSUMER_GROUP}
+spring.cloud.stream.bindings.supply-out-0.destination=${THE_SAME_EVENTHUB_NAME_AS_ABOVE}
+spring.cloud.stream.eventhubs.bindings.consume-in-0.consumer.checkpoint.mode=MANUAL</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
   cloud:
@@ -6689,7 +6706,24 @@ spring.cloud.stream.eventhubs.bindings.consume-in-0.consumer.checkpoint.mode=MAN
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">spring.cloud.azure.credential.managed-identity-enabled=true
+spring.cloud.azure.credential.client-id=${AZURE_MANAGED_IDENTITY_CLIENT_ID}
+spring.cloud.azure.eventhubs.namespace=${EVENTHUB_NAMESPACE}
+spring.cloud.azure.eventhubs.processor.checkpoint-store.container-name=${CONTAINER_NAME}
+spring.cloud.azure.eventhubs.processor.checkpoint-store.account-name=${ACCOUNT_NAME}
+spring.cloud.stream.function.definition=consume;supply
+spring.cloud.stream.bindings.consume-in-0.destination=${EVENTHUB_NAME}
+spring.cloud.stream.bindings.consume-in-0.group=${CONSUMER_GROUP}
+spring.cloud.stream.bindings.supply-out-0.destination=${THE_SAME_EVENTHUB_NAME_AS_ABOVE}
+
+spring.cloud.stream.eventhubs.bindings.consume-in-0.consumer.checkpoint.mode=MANUAL</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
   cloud:
@@ -6921,9 +6955,21 @@ public void consumerError(Message&lt;?&gt; message) {
 <div class="paragraph">
 <p>This channel is not open by default. You need to add a configuration in your application.properties to enable it, like this:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Properties</div>
 <div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">spring.cloud.stream.default.producer.errorChannelEnabled=true</code></pre>
+<pre class="highlight"><code class="language-properties" data-lang="properties">spring.cloud.stream.default.producer[errorChannelEnabled]=true</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  cloud:
+    stream:
+      default:
+        producer:
+          errorChannelEnabled: true</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -7544,9 +7590,23 @@ spring.cloud.stream.servicebus.bindings.supply-out-0.producer.entity-type=queue<
 </li>
 </ul>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Properties</div>
 <div class="content">
-<pre>spring:
+<pre class="highlight"><code class="language-properties" data-lang="properties">spring.cloud.azure.credential.managed-identity-enabled=true
+spring.cloud.azure.credential.client-id=${MANAGED_IDENTITY_CLIENT_ID}
+spring.cloud.azure.servicebus.namespace=${SERVICEBUS_NAMESPACE}
+spring.cloud.stream.function.definition=consume;supply
+spring.cloud.stream.bindings.consume-in-0.destination=${SERVICEBUS_ENTITY_NAME}
+spring.cloud.stream.bindings.supply-out-0.destination=${SERVICEBUS_ENTITY_NAME_SAME_AS_ABOVE}
+spring.cloud.stream.servicebus.bindings.consume-in-0.consumer.auto-complete=false
+spring.cloud.stream.servicebus.bindings.supply-out-0.producer.entity-type=queue</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
   cloud:
     azure:
       credential:
@@ -7571,7 +7631,7 @@ spring.cloud.stream.servicebus.bindings.supply-out-0.producer.entity-type=queue<
               auto-complete: false
           supply-out-0:
             producer:
-              entity-type: queue # set as "topic" if you use Service Bus Topic</pre>
+              entity-type: queue # set as "topic" if you use Service Bus Topic</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -7701,9 +7761,21 @@ public void consumerError(Message&lt;?&gt; message) {
 <div class="paragraph">
 <p>This channel is not open by default. You need to add a configuration in your application.properties to enable it, like this:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Properties</div>
 <div class="content">
-<pre class="highlight"><code class="language-properties" data-lang="properties">spring.cloud.stream.default.producer.errorChannelEnabled=true</code></pre>
+<pre class="highlight"><code class="language-properties" data-lang="properties">spring.cloud.stream.default.producer[errorChannelEnabled]=true</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  cloud:
+    stream:
+      default:
+        producer:
+          errorChannelEnabled: true</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -8406,10 +8478,23 @@ Authentication information is also required for authenticating for Azure Resourc
 <div class="paragraph">
 <p>Add below properties and you are good to go.</p>
 </div>
-<div class="listingblock">
+<div class="listingblock primary">
+<div class="title">Properties</div>
 <div class="content">
 <pre class="highlight"><code class="language-properties" data-lang="properties">spring.cloud.azure.redis.name=${AZURE_CACHE_REDIS_NAME}
 spring.cloud.azure.redis.resource.resource-group=${AZURE_CACHE_REDIS_RESOURCE_GROUP}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Yaml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  cloud:
+    azure:
+      redis:
+        name: ${AZURE_CACHE_REDIS_NAME}
+        resource:
+          resource-group: ${AZURE_CACHE_REDIS_RESOURCE_GROUP}</code></pre>
 </div>
 </div>
 </div>
@@ -8599,7 +8684,7 @@ spring.cloud.azure[<azure-service>].resource.resource-group=${RESOURCE_GROUP}</c
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-26 07:55:10 UTC
+Last updated 2022-04-26 08:16:45 UTC
 </div>
 </div>
 </div>

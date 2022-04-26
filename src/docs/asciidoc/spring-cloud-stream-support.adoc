@@ -488,13 +488,19 @@ public void consumerError(Message<?> message) {
 - Producer error channel
 
 This channel is not open by default. You need to add a configuration in your application.properties to enable it, like this:
-[source,properties]
+
+[source,yaml,configblocks]
 ----
-spring.cloud.stream.default.producer.errorChannelEnabled=true
+spring:
+  cloud:
+    stream:
+      default:
+        producer:
+          errorChannelEnabled: true
 ----
 
 You can handle the error message in this way:
-[source,yaml,configblocks]
+[source,java]
 ----
 // Replace destination with spring.cloud.stream.bindings.output.destination
 @ServiceActivator(inputChannel = "{destination}.errors")

@@ -48,7 +48,7 @@ jobs:
         id: html-link-report
         uses: peter-evans/link-checker@v1
         with:
-          args: -d --document-root ./docs/target/generated-docs -r -x "my|localhost|127.0.0.1"
+          args: -d --document-root ./docs/target/generated-docs -v -r -x "my|localhost|127.0.0.1"
 
       - name: Link version replacement
         run: |

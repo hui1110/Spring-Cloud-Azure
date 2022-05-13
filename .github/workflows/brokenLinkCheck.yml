@@ -56,7 +56,7 @@ jobs:
             cd link-checker
             sudo sed -i 's/spring-cloud-azure_*.*.*-beta.[0-9]/main/g' *
             sudo sed -i 's/```/ /g' *
-            cp out.md ../
+            mv out.md ../
           fi
 
       - name: Markdown Links Check

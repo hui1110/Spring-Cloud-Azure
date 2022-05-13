@@ -2,7 +2,7 @@
 # Spring Cloud Azure [![Update Docs](https://github.com/microsoft/spring-cloud-azure/actions/workflows/updateDocs.yaml/badge.svg)](https://github.com/microsoft/spring-cloud-azure/actions/workflows/updateDocs.yaml) [![pages-build-deployment](https://github.com/microsoft/spring-cloud-azure/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/microsoft/spring-cloud-azure/actions/workflows/pages/pages-build-deployment)
 
 
-Spring Cloud Azure is an open-source project that provides seamless Spring integration with Azure [services](https://docs.microsoft.com/en-us/previous-versions/tn-archive/cc751383(v=technet.10)).
+Spring Cloud Azure is an open-source project that provides seamless Spring integration with Azure [services](https://docs.microsoft.com/en-us/previous-versions/tn-archive/cc751383(v=technet.10oiubivbb0)).
 
 
 

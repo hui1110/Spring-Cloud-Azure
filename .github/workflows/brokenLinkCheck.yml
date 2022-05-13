@@ -57,7 +57,7 @@ jobs:
             ls -al
             sudo sed -i 's/spring-cloud-azure_*.*.*-beta.[0-9]/main/g' *
             sudo sed -i 's/```/ /g' *
-            mv out.md ../
+            sudo mv out.md ../
           fi
           ls -al
 

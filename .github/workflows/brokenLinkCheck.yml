@@ -58,12 +58,21 @@ jobs:
              sudo sed -i 's/```/ /g' *
              sudo mv out.md ../
           fi
-
-      - name: Markdown Links Check
-        id: markdown-link-report
-        uses: peter-evans/link-checker@v1
+      
+      - uses: actions/checkout@master
+    
+      - uses: gaurav-nelson/github-action-markdown-link-check@1.0.13
+        name: Markdown Links Check
         with:
-          args: -d . -v -r -x "my|localhost|127.0.0.1" *.md
+           use-quiet-mode: 'yes'
+           use-verbose-mode: 'yes'
+           config-file: '.github/workflows/mlc_config.json'
+      
+#       - name: Markdown Links Check
+#         id: markdown-link-report
+#         uses: peter-evans/link-checker@v1
+#         with:
+#           args: -d . -v -r -x "my|localhost|127.0.0.1" *.md
 
-      - name: Fail if there were link errors
-        run: exit ${{ steps.markdown-link-report.outputs.exit_code }}
+#       - name: Fail if there were link errors
+#         run: exit ${{ steps.markdown-link-report.outputs.exit_code }}

@@ -3,6 +3,9 @@
 
 If you have any questions about this document, please ask by creating GitHub issues. And Pull Request is welcome.
 
+If you believe you have found a security vulnerability in any Microsoft-owned repository that meets https://docs.microsoft.com/en-us/previous-versions/tn-archive/cc751383(v=technet.10)[Microsoft's definition of a security vulnerability], please report it to us as described below.
+
+
 .GitHub repositories
 [%autowidth.stretch]
 [cols="<30,<70", options="header"]

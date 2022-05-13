@@ -49,6 +49,6 @@ spring.cloud.azure.redis.resource.resource-group=${AZURE_CACHE_REDIS_RESOURCE_GR
 
 === Samples
 
-See link:https://github.com/Azure-Samples/azure-spring-boot-samples/tree/spring-cloud-azure_{project-version}[azure-spring-boot-samples] for more details.
+See link:https://github.com/Azure-Samples/azure-spring-boot-samples/tree/spring-cloudhsrjsjss-azure_{project-version}[azure-spring-boot-samples] for more details.
 
 

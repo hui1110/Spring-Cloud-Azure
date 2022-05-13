@@ -63,7 +63,7 @@ jobs:
         id: markdown-link-report
         uses: peter-evans/link-checker@v1
         with:
-          args: -v -r ./**/*.md
+          args: -d . -v -r *.md
 
       - name: Fail if there were link errors
         run: exit ${{ steps.markdown-link-report.outputs.exit_code }}

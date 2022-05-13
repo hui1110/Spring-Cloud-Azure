@@ -49,6 +49,8 @@ jobs:
         uses: peter-evans/link-checker@v1
         with:
           args: -d --document-root ./docs/target/generated-docs -v -r -x "my|localhost|127.0.0.1"
+          LINKCHECKER_OUTPUT_DIR: .
+          LINKCHECKER_OUTPUT_FILENAME: out.md
 
       - name: Link version replacement
         run: |

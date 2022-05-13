@@ -52,12 +52,12 @@ jobs:
 
       - name: Link version replacement
         run: |
-          if [-d /link-checker]; then
-            cd link-checker
-            ls -al
-            sudo sed -i 's/spring-cloud-azure_*.*.*-beta.[0-9]/main/g' *
-            sudo sed -i 's/```/ /g' *
-            sudo mv out.md ../
+          if [-d "link-checker/"] ; then
+             cd link-checker
+             ls -al
+             sudo sed -i 's/spring-cloud-azure_*.*.*-beta.[0-9]/main/g' *
+             sudo sed -i 's/```/ /g' *
+             sudo mv out.md ../
           fi
           ls -al
 

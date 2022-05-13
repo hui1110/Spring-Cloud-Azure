@@ -6,7 +6,7 @@ on:
     - main
     - docs
     - 4.*
-    # paths:
+  # paths:
     # - 'docs/**'
   # release:
   #   types: [published] # includes pre-release and regular releases, but does not include draft releases.
@@ -21,6 +21,25 @@ jobs:
   updateDocs:
     runs-on: ubuntu-20.04
     steps:
+    - run: | 
+          git init azure-sdk-for-java
+          cd azure-sdk-for-java
+          git remote add origin https://github.com/Azure/azure-sdk-for-java.git
+          git config core.sparsecheckout true
+          echo "sdk/spring" >> .git/info/sparse-checkout
+          echo "eng" >> .git/info/sparse-checkout
+          echo "sdk/keyvault" >> .git/info/sparse-checkout
+          echo "sdk/boms" >> .git/info/sparse-checkout
+          echo "sdk/aot" >> .git/info/sparse-checkout
+          git pull --depth=1 origin main
+          mvn clean install -Dmaven.javadoc.skip=true -DskipTests \
+            -Dcheckstyle.skip=true \
+            -ntp \
+            -Dspotbugs.skip=true \
+            -Drevapi.skip=true -Djacoco.skip=true \
+            -Dparallel-test-playback \
+            -Pdev \
+            -f sdk/spring/pom.xml
     - name: Get current date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d' --utc)"
@@ -69,17 +88,3 @@ jobs:
         else
           ./docs/src/main/asciidoc/ghpages.sh --build
         fi
-    - name: Link Checker
-      id: link-report
-      uses: peter-evans/link-checker@v1
-      with:
-        args: -d --document-root ./docs/target/generated-docs -r -x "localhost|127.0.0.1"
-    - name: Get the result
-      run: |
-         errors=`cat link-checker/out.md | grep 'ERROR' | wc -l`
-         if [[ $errors -gt 0 ]] ; then 
-             echo 'Check for broken links' 
-             exit 1
-         else
-             echo 'Link check passed'
-         fi

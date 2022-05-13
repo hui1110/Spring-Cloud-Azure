@@ -58,6 +58,7 @@ jobs:
             sudo sed -i 's/```/ /g' *
             mv out.md ../
           fi
+          ls -al
 
       - name: Markdown Links Check
         id: markdown-link-report

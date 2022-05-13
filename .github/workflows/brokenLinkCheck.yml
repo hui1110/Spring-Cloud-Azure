@@ -57,6 +57,7 @@ jobs:
             sudo sed -i 's/spring-cloud-azure_*.*.*-beta.[0-9]/main/g' *
             sudo sed -i 's/```/ /g' *
           fi
+          ls -al
 
       - name: Markdown Links Check
         id: markdown-link-report

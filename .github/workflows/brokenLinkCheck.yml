@@ -54,18 +54,16 @@ jobs:
         run: |
           if [ -d "link-checker/" ] ; then
              cd link-checker
-             ls -al
              sudo sed -i 's/spring-cloud-azure_*.*.*-beta.[0-9]/main/g' *
              sudo sed -i 's/```/ /g' *
              sudo mv out.md ../
           fi
-          ls -al
 
       - name: Markdown Links Check
         id: markdown-link-report
         uses: peter-evans/link-checker@v1
         with:
-          args: -d . -v -r *.md
+          args: -d . -v -r -x "my|localhost|127.0.0.1" *.md
 
       - name: Fail if there were link errors
         run: exit ${{ steps.markdown-link-report.outputs.exit_code }}

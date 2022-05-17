@@ -22,7 +22,11 @@ jobs:
         name: Checkout Azure/azure-sdk-for-java
         with:
           patterns: |
-           .github
+           sdk/spring
+           eng
+           sdk/keyvault
+           sdk/boms
+           sdk/aot
           repository: Azure/azure-sdk-for-java
           ref: main
           path: azure-sdk-for-java

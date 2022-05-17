@@ -21,9 +21,7 @@ jobs:
       - uses: snow-actions/sparse-checkout@v1.1.0
         name: Checkout Azure/azure-sdk-for-java
         with:
-          patterns: |
-           **
-           eng,sdk/spring,sdk/keyvault,sdk/boms,sdk/aot
+          patterns: "**/*"
           repository: Azure/azure-sdk-for-java
           ref: main
           path: azure-sdk-for-java

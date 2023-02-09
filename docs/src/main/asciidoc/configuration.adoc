@@ -1,6 +1,8 @@
 [#configuration]
 == Configuration
 
+=== Configuration for each Azure Service SDK
+
 Most of Azure SDKs could be divided into two categories by transport type, HTTP-based and AMQP-based. There are properties that are common to all SDKs such as authentication principals and Azure environment settings. Or common to HTTP-based clients, such as logging level to log HTTP requests and responses. Spring Cloud Azure 4.0 provides five common categories of configuration properties, which could be specified to each Azure service.
 
 .Service common properties
@@ -51,6 +53,8 @@ There are some properties that could be shared among different Azure services, f
 
 NOTE: Properties configured under each Azure service will override the global configurations.
 
+=== Global configuration for Azure Service SDKs
+
 Spring Cloud Azure unifies configuration properties' prefixes to `spring.cloud.azure` since 4.0, which will make configuration properties more consistent and more intuitive. Here's a quick review of the serivce specific properties.
 
 .Service specific properties
@@ -60,37 +64,77 @@ Spring Cloud Azure unifies configuration properties' prefixes to `spring.cloud.a
 
 |Azure App Configuration 
 |spring.cloud.azure.*appconfiguration*
-|link:appendix.html#_azure_app_configuration_proeprties[App Configuration Properties]
+|link:appendix.html#azure_app_configuration_proeprties[App Configuration Properties]
 
 |Azure Cosmos DB 
 |spring.cloud.azure.*cosmos*
-|link:appendix.html#_azure_cosmos_proeprties[Cosmos Properties]
+|link:appendix.html#azure_cosmos_proeprties[Cosmos Properties]
 
 |Azure Event Hubs 
 |spring.cloud.azure.*eventhubs*
-|link:appendix.html#_azure_event_hubs_proeprties[Event Hubs Properties]
+|link:appendix.html#azure_event_hubs_proeprties[Event Hubs Properties]
 
 |Azure Key Vault Certificates
 |spring.cloud.azure.*keyvault.certificate*
-|link:appendix.html#_azure_key_vault_certificates_proeprties[Key Vault Certificates Properties]
+|link:appendix.html#azure_key_vault_certificates_proeprties[Key Vault Certificates Properties]
 
 |Azure Key Vault Secrets 
 |spring.cloud.azure.*keyvault.secret*
-|link:appendix.html#_azure_key_vault_secrets_proeprties[Key Vault Secrets Properties]
+|link:appendix.html#azure_key_vault_secrets_proeprties[Key Vault Secrets Properties]
 
 |Azure Service Bus 
 |spring.cloud.azure.*servicebus*
-|link:appendix.html#_azure_service_bus_proeprties[Service Bus Properties]
+|link:appendix.html#azure_service_bus_proeprties[Service Bus Properties]
 
 |Azure Storage Blob
 |spring.cloud.azure.*storage.blob*
-|link:appendix.html#_azure_storage_blob_proeprties[Storage Blob Properties]
+|link:appendix.html#azure_storage_blob_proeprties[Storage Blob Properties]
 
 |Azure Storage File Share 
 |spring.cloud.azure.*storage.fileshare*
-|link:appendix.html#_azure_storage_file_share_proeprties[Storage File Share Properties]
+|link:appendix.html#azure_storage_file_share_proeprties[Storage File Share Properties]
 
 |Azure Storage Queue
 |spring.cloud.azure.*storage.queue*
-|link:appendix.html#_azure_storage_queue_proeprties[Storage Queue Properties]
+|link:appendix.html#azure_storage_queue_proeprties[Storage Queue Properties]
 |===
+
+=== Configuration examples
+
+==== Global retry configuration for Azure Service SDKs
+
+[source,yaml]
+----
+spring.cloud.azure:
+  retry:
+    mode: exponential
+    exponential:
+      max-retries: 4
+      base-delay: PT0.0801S
+      max-delay: PT9S
+----
+
+==== Retry configuration for Key Vault property source
+
+The following configuration example shows you how to configure the retry behavior for the Azure Key Vault Secret client:
+
+[source,yaml]
+----
+spring.cloud.azure:
+  keyvault:
+    secret:
+      credential:
+        client-id: <your-client-ID>
+        client-secret: <your client key>
+      profile:
+        tenant-id: <your-tenant-ID>
+      property-source-enabled: true
+      property-sources:
+        - endpoint: <your-Azure-Key-Vault-endpoint>
+          retry:
+            mode: exponential
+            exponential:
+              max-retries: 4
+              base-delay: PT0.0801S
+              max-delay: PT9S
+----

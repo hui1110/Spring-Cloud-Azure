@@ -20,13 +20,13 @@
     <parent>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-build</artifactId>
-        <version>3.1.2</version>
+        <version>3.1.4</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.azure.spring</groupId>
     <artifactId>spring-cloud-azure-aggregator</artifactId>
-    <version>4.1.0</version>
+    <version>4.4.1</version>
     <packaging>pom</packaging>
     <name>Spring Cloud Azure</name>
     <description>Spring Cloud Azure</description>
@@ -37,10 +37,10 @@
         <!-- <javax-mail.version>1.5.5</javax-mail.version> -->
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <!-- <javax.activation.version>1.2.0</javax.activation.version> -->
-        <spring-cloud-commons.version>3.1.2</spring-cloud-commons.version>
+        <spring-cloud-commons.version>3.1.4</spring-cloud-commons.version>
         <!-- "version.spring.cloud.azure" is used to update "_configprops.adoc".
          -->
-        <version.spring.cloud.azure>4.1.0</version.spring.cloud.azure>
+        <version.spring.cloud.azure>4.4.1</version.spring.cloud.azure>
         <spring-javaformat.version>0.0.29</spring-javaformat.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -48,6 +48,7 @@
 
     <modules>
         <module>docs</module>
+        <module>spring-cloud-azure-markdown-appdendix-generator</module>
     </modules>
 
     <dependencyManagement>
@@ -109,6 +110,220 @@
                         </compilerArgs>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>generate-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-all.adoc</argument>
+                                    <argument>(?!spring.cloud.azure.storage.fileshare.(credential).*)(spring.jms.servicebus.*|spring.cloud.azure.*)</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-global-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-global.adoc</argument>
+                                    <argument>spring.cloud.azure.(client|credential|profile|proxy|retry).*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-aad-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-active-directory.adoc</argument>
+                                    <argument>(?!spring.cloud.azure.active-directory.b2c.*)(spring.cloud.azure.active-directory.*)</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-aadb2c-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-active-directory-b2c.adoc</argument>
+                                    <argument>spring.cloud.azure.active-directory.b2c.*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-appconf-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-app-configuration.adoc</argument>
+                                    <argument>spring.cloud.azure.appconfiguration.*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-cosmos-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-cosmos-db.adoc</argument>
+                                    <argument>spring.cloud.azure.cosmos.*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-eventhubs-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-event-hubs.adoc</argument>
+                                    <argument>spring.cloud.azure.eventhubs.*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-kv-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-key-vault.adoc</argument>
+                                    <argument>(?!spring.cloud.azure.keyvault.(secret|certificate).*)(spring.cloud.azure.keyvault.*)</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-kv-secret-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-key-vault-secrets.adoc</argument>
+                                    <argument>spring.cloud.azure.keyvault.secret.*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-kv-certificate-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-key-vault-certificates.adoc</argument>
+                                    <argument>spring.cloud.azure.keyvault.certificate.*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-servicebus-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-service-bus.adoc</argument>
+                                    <argument>spring.cloud.azure.servicebus.*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-servicebus-jms-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-service-bus-jms.adoc</argument>
+                                    <argument>spring.jms.servicebus.*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-storage-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-storage.adoc</argument>
+                                    <argument>(?!spring.cloud.azure.storage.(blob|fileshare|queue).*)(spring.cloud.azure.storage.*)</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-storage-blob-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-storage-blob.adoc</argument>
+                                    <argument>spring.cloud.azure.storage.blob.*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-storage-fileshare-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-storage-file-share.adoc</argument>
+                                    <argument>(?!spring.cloud.azure.storage.fileshare.(credential).*)(spring.cloud.azure.storage.fileshare.*)</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>generate-storage-queue-configprops</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <arguments>
+                                    <argument>${project.basedir}/src/main/asciidoc/_configuration-properties-azure-storage-queue.adoc</argument>
+                                    <argument>spring.cloud.azure.storage.queue.*</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
             
             </plugins>
         </pluginManagement>
@@ -133,7 +348,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.4.1</version>
                 <configuration>
                     <links>
                         <link>https://docs.oracle.com/javase/8/docs/api/</link>

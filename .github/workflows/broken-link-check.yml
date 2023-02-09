@@ -22,16 +22,14 @@ jobs:
         name: Checkout Azure/azure-sdk-for-java
         with:
           patterns: |
-           sdk/spring eng sdk/keyvault sdk/boms sdk/aot
+            sdk/spring eng sdk/keyvault sdk/boms sdk/aot sdk/jdbc
           repository: Azure/azure-sdk-for-java
           ref: main
           path: azure-sdk-for-java
-            
-      - name: Build files needed for runtime     
+
+      - name: Build latest azure-sdk-for-java repository
         run: |
-          ls -al
           cd azure-sdk-for-java
-          ls -al
           mvn clean install -Dmaven.javadoc.skip=true -DskipTests \
             -Dcheckstyle.skip=true \
             -ntp \
@@ -47,13 +45,13 @@ jobs:
         run: |
           ./mvnw clean install -P docs -pl docs -DskipTests
 
-      - name: Html Link Checker
+      - name: Check link in generated html files
         id: html-link-report
         uses: peter-evans/link-checker@v1
         with:
-          args: -d --document-root ./docs/target/generated-docs -v -r -x "my|localhost|127.0.0.1"
+          args: -d --document-root ./docs/target/generated-docs -r -x "https://my.custom.endpoint.com:55300|localhost"
 
-      - name: Link version replacement
+      - name: Replace bata to main in html-link-report result
         run: |
           if [ -d "link-checker/" ] ; then
              cd link-checker
@@ -61,21 +59,14 @@ jobs:
              sudo sed -i 's/```/ /g' *
              sudo mv out.md ../
           fi
-      
-      - uses: actions/checkout@master
-    
-      - uses: gaurav-nelson/github-action-markdown-link-check@1.0.13
-        name: Markdown Links Check
-        with:
-           use-quiet-mode: 'yes'
-           use-verbose-mode: 'yes'
-           config-file: '.github/workflows/mlc_config.json'
-      
-#       - name: Markdown Links Check
-#         id: markdown-link-report
-#         uses: peter-evans/link-checker@v1
-#         with:
-#           args: -d . -v -r -x "my|localhost|127.0.0.1" *.md
 
-#       - name: Fail if there were link errors
-#         run: exit ${{ steps.markdown-link-report.outputs.exit_code }}
+      - name: Remove files generated at build-time.
+        run: |
+          ./mvnw clean
+
+      - name: Check link in all markdown files
+        uses: gaurav-nelson/github-action-markdown-link-check@1.0.13
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          config-file: '.github/workflows/markdown-link-check-config.json'

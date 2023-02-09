@@ -8,7 +8,7 @@ Azure offers a great platform to democratize your application development journe
 
 Spring Security has made it easy to secure your Spring based applications with powerful abstractions and extensible interfaces. However, as powerful as the Spring framework can be, it is not tailored to a specific identity provider.
 
-The `spring-cloud-azure-starter-active-directory` (`aad-starter` for short) provides the most optimal way to connect your `web application` to an Azure Active Directory (AAD for short) tenant and protect `resource server` with AAD. It uses the Oauth 2.0 protocol to protect `web applications` and `resource servers`.
+The `spring-cloud-azure-starter-active-directory` provides the most optimal way to connect your web application to an Azure Active Directory (Azure AD for short) tenant and protect your resource server with Azure AD. It uses the Oauth 2.0 protocol to protect web applications and resource servers.
 
 ==== Accessing a Web Application
 
@@ -219,6 +219,27 @@ public class AadOAuth2LoginSecurityConfig extends AadWebSecurityConfigurerAdapte
                 .and()
             .authorizeRequests()
                 .anyRequest().authenticated();
+    }
+}
+----
+
+[#connecting-to-azure-ad-via-proxy]
+====== Connecting to Azure AD via proxy
+
+To connect Azure AD via proxy, just provide a `RestTemplateCustomizer` bean like this:
+
+[source,java]
+----
+@Configuration
+class DemoConfiguration {
+    @Bean
+    public RestTemplateCustomizer proxyRestTemplateCustomizer() {
+        return (RestTemplate restTemplate) -> {
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT));
+            SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+            requestFactory.setProxy(proxy);
+            restTemplate.setRequestFactory(requestFactory);
+        };
     }
 }
 ----
@@ -508,6 +529,100 @@ By doing this, when access `/app-role1` endpoint, the following claims in access
 
   - `roles`: The value must contains `AppRole1`.
 
+====== Use JWT Client Authentication
+
+1. Read link:https://docs.microsoft.com/azure/active-directory/develop/active-directory-certificate-credentials#register-your-certificate-with-microsoft-identity-platform[MS docs about Register your certificate with Microsoft identity platform].
+2. Upload a *.pem* certificate to application registered in Azure Portal.
+3. Configure certificate path and password of a **.PFX* or **.P12* certificate.
+4. Add property `spring.cloud.azure.active-directory.authorization-clients.azure.client-authentication-method=private_key_jwt` configuration to client that wants to be authenticated through JWT Client Authentication.
+
+Below is an example configuration file for a Web Application scenario, certificate information is configured in global properties:
+
+[source,yaml]
+----
+spring:
+  cloud:
+    azure:
+      credential:
+        client-id: ${AZURE_CLIENT_ID}
+        client-certificate-path: ${AZURE_CERTIFICATE_PATH}
+        client-certificate-password: ${AZURE_CERTIFICATE_PASSWORD}
+      profile:
+        tenant-id: ${AZURE_TENANT_ID}
+      active-directory:
+        enabled: true
+        user-group:
+          allowed-group-names: group1,group2
+          allowed-group-ids: <group1-id>,<group2-id>
+        post-logout-redirect-uri: http://localhost:8080
+        authorization-clients:
+          azure:
+            client-authentication-method: private_key_jwt
+          arm:
+            client-authentication-method: private_key_jwt
+            on-demand: true
+            scopes: https://management.core.windows.net/user_impersonation
+          graph:
+            client-authentication-method: private_key_jwt
+            scopes:
+              - https://graph.microsoft.com/User.Read
+              - https://graph.microsoft.com/Directory.Read.All
+          webapiA:
+            client-authentication-method: private_key_jwt
+            scopes:
+              - ${WEB_API_A_APP_ID_URL}/Obo.WebApiA.ExampleScope
+          webapiB:
+            client-authentication-method: private_key_jwt
+            scopes:
+              - ${WEB_API_B_APP_ID_URL}/.default
+            authorization-grant-type: client_credentials
+----
+
+The certificate information can also be configured in `active-directory` service properties:
+
+[source,yaml]
+----
+spring:
+  cloud:
+    azure:
+      active-directory:
+        enabled: true
+        credential:
+          client-id: ${AZURE_CLIENT_ID}
+          client-certificate-path: ${AZURE_CERTIFICATE_PATH}
+          client-certificate-password: ${AZURE_CERTIFICATE_PASSWORD}
+        profile:
+          tenant-id: ${AZURE_TENANT_ID}
+        user-group:
+          allowed-group-names: group1,group2
+          allowed-group-ids: <group1-id>,<group2-id>
+        post-logout-redirect-uri: http://localhost:8080
+        authorization-clients:
+          azure:
+            client-authentication-method: private_key_jwt
+          arm:
+            client-authentication-method: private_key_jwt
+            on-demand: true
+            scopes: https://management.core.windows.net/user_impersonation
+          graph:
+            client-authentication-method: private_key_jwt
+            scopes:
+              - https://graph.microsoft.com/User.Read
+              - https://graph.microsoft.com/Directory.Read.All
+          webapiA:
+            client-authentication-method: private_key_jwt
+            scopes:
+              - ${WEB_API_A_APP_ID_URL}/Obo.WebApiA.ExampleScope
+          webapiB:
+            client-authentication-method: private_key_jwt
+            scopes:
+              - ${WEB_API_B_APP_ID_URL}/.default
+            authorization-grant-type: client_credentials
+----
+
+====== Connecting to Azure AD via proxy
+
+To connect Azure AD via proxy, you need provide a `RestTemplateCustomizer` bean. For more information, see the link:index.html#connecting-to-azure-ad-via-proxy[Web application connecting to Azure AD via proxy] section.
 
 ===== Samples
 
@@ -682,6 +797,8 @@ public class AadWebApplicationAndResourceServerConfig {
 |*spring.cloud.azure.active-directory*.authorization-clients                         |         | The OAuth2 authorization clients.
 |*spring.cloud.azure.active-directory*.credential.client-id                          |         | Client id to use when performing service principal authentication with Azure.
 |*spring.cloud.azure.active-directory*.credential.client-secret                      |         | Client secret to use when performing service principal authentication with Azure.
+|*spring.cloud.azure.active-directory*.credential.client-certificate-path            |         | Client secret to use when performing service principal authentication with Azure.
+|*spring.cloud.azure.active-directory*.credential.client-certificate-password        |         | Password of the certificate file.
 |*spring.cloud.azure.active-directory*.jwk-set-cache-lifespan                        | `5`     | The lifespan of the cached JWK set before it expires, default is 5 minutes.
 |*spring.cloud.azure.active-directory*.jwk-set-cache-refresh-time                    | `5`     | The refresh time of the cached JWK set before it expires, default is 5 minutes.
 |*spring.cloud.azure.active-directory*.jwt-connect-timeout                           |         | Connection Timeout for the JWKSet Remote URL call.
@@ -759,7 +876,7 @@ For full configurations, check link:appendix.html#migration-guide-for-4-0[the Ap
 
 ==== Basic Usage
 
-A `web application` is any web based application that allows user to login Azure AD, whereas a `resource server` will either accept or deny access after validating access_token obtained from Azure AD. We will cover 4 scenarios in this guide:
+A `web application` is any web based application that allows user to login with Azure AD, whereas a `resource server` will either accept or deny access after validating access_token obtained from Azure AD. We will cover 4 scenarios in this guide:
 
 . Accessing a web application.
 . Web application accessing resource servers.

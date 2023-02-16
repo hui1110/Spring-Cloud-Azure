@@ -78,7 +78,7 @@ jobs:
             echo "The branch ${{ steps.get_project_version_and_branch_name.outputs.branch_name }} does not exist, create."
             git checkout -b ${{ steps.get_project_version_and_branch_name.outputs.branch_name }}
           fi
-          cp -f ../spring-cloud-azure-markdown-appdendix-generator/src/main/asciidoc/configuration-*.md articles/java/spring-framework/includes/spring-cloud-azure
+          cp -f ../spring-cloud-azure-markdown-appdendix-generator/src/main/asciidoc/configuration-*.md articles/java/spring-framework
           if [[ -n "$(git status -s)" ]] ;then
           echo "added_a_commit_in_topic_branch=true" >> $GITHUB_OUTPUT
             git add ./articles/java/spring-framework/includes/spring-cloud-azure/configuration-*.md

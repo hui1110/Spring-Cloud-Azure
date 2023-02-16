@@ -81,7 +81,7 @@ jobs:
           cp -f ../spring-cloud-azure-markdown-appdendix-generator/src/main/asciidoc/configuration-*.md articles/java/spring-framework
           if [[ -n "$(git status -s)" ]] ;then
           echo "added_a_commit_in_topic_branch=true" >> $GITHUB_OUTPUT
-            git add ./articles/java/spring-framework/includes/spring-cloud-azure/configuration-*.md
+            git add ./articles/java/spring-framework/configuration-*.md
             git commit -m "Update the configuration properties for Spring Cloud Azure: ${{ steps.get_project_version_and_branch_name.outputs.project_version }}. This commit is created by GitHub Action: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
             git push "https://${{ secrets.UPDATE_PROPERTIES_TABLE_IN_MS_DOCS_GITHUB_USERNAME }}:${{ secrets.UPDATE_PROPERTIES_TABLE_IN_MS_DOCS_GITHUB_ACCESS_TOKEN }}@github.com/${{ secrets.UPDATE_PROPERTIES_TABLE_IN_MS_DOCS_GITHUB_USERNAME }}/azure-dev-docs-pr.git"
           else
